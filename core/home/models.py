@@ -11,6 +11,7 @@ class Student(models.Model):
     address = models.TextField(null=True,blank=True)
     file = models.FileField()
     
-class product(models.Model):
-    pass
+class Car(models.Model):
+    car_name  = models.CharField(max_length=100)
+    speed = models.IntegerField(default = 50)
 
