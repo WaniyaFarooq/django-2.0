@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "receipes/base.html" %}
+{% block start %}
+
+<div class="container mt-5">
+
+<form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h3>Add Recipe</h3>
+    <br>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Recipe name</label>
+    <input type="text" name="receipe_name" class="form-control" ></div>
+  
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Recipe description</label>
+    <textarea class="form-control" name="receipe_description" ></textarea></div>
+  
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Recipe Image</label>
+    <input type="file" name="recipe_image" class="form-control" ></div>
+  
+  <button type="submit" class="btn btn-success btn-primary">Add Recipe</button>
+</form>
+
+</div>
+{% endblock %}
