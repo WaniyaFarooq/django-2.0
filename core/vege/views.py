@@ -1,3 +1,4 @@
+from django.http import QueryDict
 from django.shortcuts import render,redirect
 from .models import *
 
@@ -9,14 +10,13 @@ def receipes(request):
         rd = data.get("receipe_description")
         ri = request.FILES.get("recipe_image")
         
-        print(rn)
-        print(rd)
-        print(ri)
         Receipe.objects.create(
         receipe_name =rn,                 
         receipe_description =rd,
         recipe_image =ri)
         return redirect("/receipes/")
-    return render(request,"receipes/receipes.html")
+    Queryset = Receipe.objects.all()
+    context = {'receipes' : Queryset}
+    return render(request,"receipes/receipes.html",context)
 
 
