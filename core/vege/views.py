@@ -8,14 +8,15 @@ def receipes(request):
         data =request.POST
         rn = data.get("receipe_name")
         rd = data.get("receipe_description")
-        ri = request.FILES.get("receipe_image")
+        ri = request.FILES.get("recipe_image")
+        
         print(rn)
         print(rd)
         print(ri)
         Receipe.objects.create(
         receipe_name =rn,                 
         receipe_description =rd,
-        receipe_image =ri)
+        recipe_image =ri)
     return render(request,"receipes/receipes.html")
 
 
