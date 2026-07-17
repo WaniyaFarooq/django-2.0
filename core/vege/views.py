@@ -18,10 +18,14 @@ def receipes(request):
         recipe_image =ri)
         return redirect("/receipes/")
     Queryset = Receipe.objects.all()
+   
+    search = request.GET.get("receipe_search")
+
+    if search:
+        Queryset = Queryset.filter(
+        receipe_name__icontains=search
+        )
     context = {'receipes' : Queryset}
-    if request.method == "GET":
-        search = request.GET.get("search")
-        qs = Queryset.filter(receipe_name__icontains = search)
     return render(request,"receipes/receipes.html",context)
 
 def delete_receipe(request,id):
