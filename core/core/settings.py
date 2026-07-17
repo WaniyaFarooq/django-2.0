@@ -123,7 +123,8 @@ import os
 # STATIC ROOT for django ki admin wali files k liy hota h
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') 
+# PRODUCTION MAIN SARI STARIC FILES KO AIK JAGA PR IKHATA KRNY K LIY
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'public/static')

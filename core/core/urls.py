@@ -30,7 +30,9 @@ urlpatterns = [
     path('contact/',contact,name = "contact"),
     path('about/',about,name = "about"),
     path('admin/', admin.site.urls),
-    path('receipes/',receipes,name="receipes")  
+    path('receipes/',receipes,name="receipes") ,
+    path('delete-receipe/<id>/',delete_receipe,name="delete_receipe"),
+    path('update-receipe/<id>/',update_receipe,name="update_receipe")
 ]
 
 

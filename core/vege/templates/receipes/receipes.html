@@ -22,13 +22,29 @@
   <button type="submit" class="btn btn-success btn-primary">Add Recipe</button>
 </form>
 
-<table class="table">
+
+<div class="mt-5">
+  <div class="mx-auto col-6">
+    <form action="" method="get">
+   {% csrf_token %}
+    <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Search Food</label>
+    <input type="text" name="receipe_search"  class="form-control" ></div>
+  <button type="submit" class="btn btn-primary">Search</button>
+   </form>
+  </div>
+ 
+</div>
+ 
+
+<table class="table mt-5">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">receipe Name</th>
       <th scope="col">receipe Description</th>
       <th scope="col">receipe Image</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -37,7 +53,18 @@
       <th scope="row">{{forloop.counter}}</th>
       <td>{{r.receipe_name}}</td>
       <td>{{r.receipe_description}}</td>
-      <td>{{r.recipe_image}}</td>
+      <td> 
+     {% if r.recipe_image %}
+        <img src="{{ r.recipe_image.url }}" 
+             style="height:100px; width:100px;">
+    {% else %}
+        No Image
+        {% endif %}
+</td></td>
+<td>
+  <a href="/delete-receipe/{{r.id}}/" class="btn btn-danger m-2" >Delete</a>
+  <a href="/update-receipe/{{r.id}}/" class="btn btn-success m-2" >Update</a>
+</td>
     </tr>
     {% endfor %}
   </tbody>
