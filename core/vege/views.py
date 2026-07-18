@@ -1,7 +1,10 @@
+
 from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
+from django.contrib.auth import authenticate ,login , logout
+# login to maintain session
 
 # Create your views here.
 def receipes(request):
@@ -57,9 +60,19 @@ def login_page(request):
         data = request.POST
         Username = data.get("Username")
         Password = data.get("Password")
-    
-    
-    return render(request, 'receipes/login.html')
+        user = User.objects.filter(username = Username)
+        if user.exists():
+            user = authenticate(username =Username ,password = Password)
+            if user is None:
+                messages.error(request,"Invalid password")
+                return redirect('/login/')
+            else:
+                login(request,user=user)
+                return redirect('/receipes/')
+        else:
+            messages.error(request,'Invalid Username')
+    return render(request, 'receipes/login.html')      
+            
 
 def register_page(request):
     if request.method == "POST":
@@ -70,15 +83,21 @@ def register_page(request):
         Password = data.get("Password")
         user = User.objects.filter(username = Username)
         if user.exists():
-            messages.info(request,"Username already taken ")
+            messages.info(request,"Username already taken")
             return redirect("/register/")
         user = User.objects.create(
          first_name = First_name,
-         last_name  =Last_name  ,
+         last_name  =Last_name,
          username = Username 
         )
         user.set_password(Password)
         user.save()
         messages.info(request,"Account created successfully")
         return redirect('/login/')
-    return render(request, 'receipes/register.html')
+    
+    return render(request,'receipes/register.html')
+
+def logout_page(request):
+    logout(request)
+    return redirect('/login/')
+    
