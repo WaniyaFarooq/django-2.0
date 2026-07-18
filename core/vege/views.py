@@ -4,9 +4,11 @@ from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login , logout
+from django.contrib.auth.decorators import login_required
 # login to maintain session
 
 # Create your views here.
+@login_required(login_url = "/login/")
 def receipes(request):
     if request.method == "POST":
         data =request.POST
@@ -30,12 +32,13 @@ def receipes(request):
     context = {'receipes' : Queryset}
     return render(request,"receipes/receipes.html",context)
 
+@login_required(login_url = "/login/")
 def delete_receipe(request,id):
     queryset = Receipe.objects.get(id=id)
     queryset.delete()
     return redirect("/receipes/")
     
-
+@login_required(login_url="/login/")
 def update_receipe(request,id):
     queryset = Receipe.objects.get(id = id)
     context  = {'receipe': queryset}
@@ -96,6 +99,7 @@ def register_page(request):
         return redirect('/login/')
     
     return render(request,'receipes/register.html')
+
 
 def logout_page(request):
     logout(request)
