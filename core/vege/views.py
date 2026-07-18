@@ -1,8 +1,7 @@
-
-
-from django.http import QueryDict
+from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
 from .models import *
+from django.contrib import messages
 
 # Create your views here.
 def receipes(request):
@@ -53,3 +52,33 @@ def update_receipe(request,id):
         return redirect("/receipes/")
     return render(request,"receipes/update_receipes.html",context)
     
+def login_page(request):
+    if request.method == "POST":
+        data = request.POST
+        Username = data.get("Username")
+        Password = data.get("Password")
+    
+    
+    return render(request, 'receipes/login.html')
+
+def register_page(request):
+    if request.method == "POST":
+        data = request.POST
+        First_name = data.get("First_name")
+        Last_name = data.get("Last_name")
+        Username = data.get("Username")
+        Password = data.get("Password")
+        user = User.objects.filter(username = Username)
+        if user.exists():
+            messages.info(request,"Username already taken ")
+            return redirect("/register/")
+        user = User.objects.create(
+         first_name = First_name,
+         last_name  =Last_name  ,
+         username = Username 
+        )
+        user.set_password(Password)
+        user.save()
+        messages.info(request,"Account created successfully")
+        return redirect('/login/')
+    return render(request, 'receipes/register.html')

@@ -28,6 +28,8 @@ from  django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('',home,name = "home"),
     path('contact/',contact,name = "contact"),
+    path('login/',login_page,name = "login_page"),
+    path('register/',register_page,name = "register_page"),
     path('about/',about,name = "about"),
     path('admin/', admin.site.urls),
     path('receipes/',receipes,name="receipes") ,
