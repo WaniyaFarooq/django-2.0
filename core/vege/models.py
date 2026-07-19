@@ -38,10 +38,14 @@ class Student(models.Model):
         verbose_name = "student"
 class Subject(models.Model):
     subject_name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.subject_name
 
 class SubjectMarks(models.Model):
     student = models.ForeignKey(Student,related_name="student",on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    marks = models.IntegerField(default= 50)
     
     def __str__(self):
         return f'{self.student.student_name} {self.subject.subject_name}'
