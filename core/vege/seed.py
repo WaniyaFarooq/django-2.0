@@ -1,9 +1,22 @@
+
 import random
 
 from faker import Faker
 from .models import *
 fake = Faker()
 
+def create_marks():
+    
+        student_obj = Student.objects.all()
+        for student in student_obj:
+            subject_obj = Subject.objects.all()
+            for s in subject_obj:
+                SubjectMarks.objects.create(
+                    student = student,
+                    subject = s,
+                    marks = random.randint(40,100)
+                )
+    
 def seed_db(n=10):
     try:
         for i in range(0,n):

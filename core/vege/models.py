@@ -43,7 +43,7 @@ class Subject(models.Model):
         return self.subject_name
 
 class SubjectMarks(models.Model):
-    student = models.ForeignKey(Student,related_name="student",on_delete=models.CASCADE)
+    student = models.ForeignKey(Student,related_name="studentss",on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     marks = models.IntegerField(default= 50)
     
