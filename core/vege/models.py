@@ -1,5 +1,3 @@
-from tabnanny import verbose
-
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -38,5 +36,16 @@ class Student(models.Model):
     class Meta:
         ordering = ['student_name']
         verbose_name = "student"
+class Subject(models.Model):
+    subject_name = models.CharField(max_length=100)
+
+class SubjectMarks(models.Model):
+    student = models.ForeignKey(Student,related_name="student",on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     
+    def __str__(self):
+        return f'{self.student.student_name} {self.subject.subject_name}'
     
+    class Meta:
+        unique_together = ['student','subject']
+        
