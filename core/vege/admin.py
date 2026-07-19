@@ -10,7 +10,7 @@ admin.site.register(SubjectMarks)
 admin.site.register(Subject)
 
 
-class SubjectMarkAdmin(admin.ModelAdmin):
-    list_display = ['student','subject','marks']
+# class SubjectMarkAdmin(admin.ModelAdmin):
+#     list_display = ['student','subject','marks']
     
-admin.site.register(SubjectMarkAdmin)
+# admin.site.register(SubjectMarkAdmin)

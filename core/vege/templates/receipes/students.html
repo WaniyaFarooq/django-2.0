@@ -1,0 +1,29 @@
+{%extends "receipes/base.html" %}
+{% block start %}
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        
+      <th scope="col">{{forloop.counter}}
+      </th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Student id</th>
+      <th scope="col">department</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+ {% for a in qs %}
+      <th scope="row">{{ forloop.counter}}</th>
+      <td>{{ a.student_name }}</td>
+      <td>{{ a.student_id }}</td>
+      <td> {{ a.department.department}}</td>
+    </tr>
+  
+  </tbody>
+  {% endfor %}
+</table>
+
+{% endblock %}

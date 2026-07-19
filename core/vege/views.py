@@ -105,3 +105,7 @@ def logout_page(request):
     logout(request)
     return redirect('/login/')
     
+def get_students(request):
+    qs = Student.objects.all()
+    return render(request,'receipes/students.html',{'qs':qs})
+    
