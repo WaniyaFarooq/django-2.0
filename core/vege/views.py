@@ -1,4 +1,5 @@
 
+
 from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
 from .models import *
@@ -101,7 +102,7 @@ def register_page(request):
     
     return render(request,'receipes/register.html')
 
-from django.db.models import  Q
+from django.db.models import  Q,Sum
 def logout_page(request):
     logout(request)
     return redirect('/login/')
@@ -125,4 +126,9 @@ def get_students(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request,'receipes/students.html',{'page_obj':page_obj})
-    
+
+def see_marks(request,s_id):
+    qs = SubjectMarks.objects.filter(student__student_id__student_id = s_id)
+    t_m =qs.aggregate(Sum('marks'))
+    print(t_m)
+    return render(request,'receipes/see_marks.html',{'qs':qs,'t_m':t_m})

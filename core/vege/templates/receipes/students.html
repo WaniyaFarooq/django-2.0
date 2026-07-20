@@ -32,9 +32,9 @@
   <tbody>
     <tr>
  {% for a in page_obj %}
-      <th scope="row">{{ forloop.counter}}</th>
+      <th scope="row">{{forloop.counter}}</th>
       <td>{{ a.student_name }}</td>
-      <td>{{ a.student_id }}</td>
+      <td><a href="/see_marks/{{a.student_id}}/">{{a.student_id}}</a></td>
       <td> {{ a.department.department}}</td>
     </tr>
   

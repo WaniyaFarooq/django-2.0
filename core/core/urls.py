@@ -36,7 +36,8 @@ urlpatterns = [
     path('receipes/',receipes,name="receipes") ,
     path('students/',get_students,name="get_students"),
     path('delete-receipe/<id>/',delete_receipe,name="delete_receipe"),
-    path('update-receipe/<id>/',update_receipe,name="update_receipe")
+    path('update-receipe/<id>/',update_receipe,name="update_receipe"),
+    path('see_marks/<s_id>/',see_marks,name="see_marks"),
 ]
 
 
