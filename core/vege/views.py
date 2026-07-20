@@ -5,6 +5,7 @@ from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login , logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 # login to maintain session
 
 # Create your views here.
@@ -100,12 +101,28 @@ def register_page(request):
     
     return render(request,'receipes/register.html')
 
-
+from django.db.models import  Q
 def logout_page(request):
     logout(request)
     return redirect('/login/')
     
 def get_students(request):
     qs = Student.objects.all()
-    return render(request,'receipes/students.html',{'qs':qs})
+    if request.GET.get('search'):
+        search = request.GET.get('search') 
+        qs = qs.filter(
+            Q(student_name__icontains = search) |
+            Q(student_id__student_id__icontains = search) |
+            Q(department__department__icontains = search) 
+            
+            
+        )
+        if not qs.exists():
+            qs = qs.filter(student_id__contains = search)
+            
+            
+    paginator = Paginator(qs, 25)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request,'receipes/students.html',{'page_obj':page_obj})
     
