@@ -127,7 +127,7 @@ def get_students(request):
 
 def see_marks(request,s_id):
     qs = SubjectMarks.objects.filter(student__student_id__student_id = s_id)
-    t_m =qs.aggregate(Sum('marks'))
-    rank = Student.objects.annotate(t_marks = Sum("studentss__marks")).order_by("-t_marks" , "-student_age")
+    t_m =qs.aggregate(t_m = Sum('marks'))
+    # rank = Student.objects.annotate(t_marks = Sum("studentss__marks")).order_by("-t_marks" , "-student_age")
    
     return render(request,'receipes/see_marks.html',{'qs':qs,'t_m':t_m})
