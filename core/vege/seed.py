@@ -1,6 +1,6 @@
 
 import random
-
+from django.db.models import Sum,Q,F,Avg,Max,Min
 from faker import Faker
 from .models import *
 fake = Faker()
@@ -41,3 +41,15 @@ def seed_db(n=10):
             )
     except Exception as e:
         print(e)
+def generate_reportcard(s_id):
+    rank = Student.objects.annotate(t_marks = Sum("studentss__marks")).order_by("-t_marks" , "-student_age")
+    i=1
+    rankk =1
+    for r in rank:  
+        ReportCard.objects.create(
+            student = r,
+            student_rank = i
+        )
+        i+=1
+
+    

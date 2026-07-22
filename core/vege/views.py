@@ -139,6 +139,5 @@ def see_marks(request,s_id):
             break
         i+=1
 
- 
-  
+
     return render(request,'receipes/see_marks.html',{'qs':qs,'t_m':t_m,'r':rankk})
