@@ -7,17 +7,19 @@ admin.site.register(Receipe)
 admin.site.register(StudentID)
 admin.site.register(Student)
 admin.site.register(Department)
-admin.site.register(SubjectMarks)
+
 admin.site.register(Subject)
 
 
 class SubjectMarkAdmin(admin.ModelAdmin):
     list_display = ['student','subject','marks']
     
-admin.site.register(SubjectMarkAdmin)
+admin.site.register(SubjectMarks,SubjectMarkAdmin)
 class ReportCardAdmin(admin.ModelAdmin):
     list_display = ['student','student_rank','total_marks','date_of_reportcard_generation']
+    ordering = ['rank']
     def total_marks(self,obj):
-        s_m = SubjectMarks
-        return
+        s_m = SubjectMarks.objects.filter(student=obj.student)
+        return s_m.aggregate(mark= Sum('marks'))["mark"]
+       
 admin.site.register(ReportCard,ReportCardAdmin)
