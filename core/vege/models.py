@@ -10,6 +10,14 @@ class Receipe (models.Model):
     receipe_description = models.TextField()
     recipe_image = models.ImageField(upload_to = "recipe")
     recipe_view_count = models.IntegerField(default=1)
+    slug = models.SlugField(unique=True,null=True,
+    blank=True)
+    
+    def save(self , *args, **kwargs):
+        if not self.slug:
+            from .utils import generate_slug
+            self.slug = generate_slug(self.receipe_name) 
+        super(Receipe,self).save(*args,**kwargs)
     
 class Department(models.Model):
     department = models.CharField(max_length=100)
