@@ -118,9 +118,7 @@ def get_students(request):
             
             
         )
-        if not qs.exists():
-            qs = qs.filter(student_id__contains = search)
-            
+        
             
     paginator = Paginator(qs, 25)  # Show 25 contacts per page.
     page_number = request.GET.get("page")
@@ -131,13 +129,5 @@ def see_marks(request,s_id):
     qs = SubjectMarks.objects.filter(student__student_id__student_id = s_id)
     t_m =qs.aggregate(Sum('marks'))
     rank = Student.objects.annotate(t_marks = Sum("studentss__marks")).order_by("-t_marks" , "-student_age")
-    i=1
-    rankk =0
-    for r in rank:
-        if s_id==r.student_id.student_id:
-            rankk = i
-            break
-        i+=1
-
-
-    return render(request,'receipes/see_marks.html',{'qs':qs,'t_m':t_m,'r':rankk})
+   
+    return render(request,'receipes/see_marks.html',{'qs':qs,'t_m':t_m})
