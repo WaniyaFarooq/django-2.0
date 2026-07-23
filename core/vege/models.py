@@ -3,7 +3,16 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.contrib.auth import get_user_model
 
+
 User = get_user_model()
+
+
+class ReceipesManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted = False)
+class StudentManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted= False)
 class Receipe (models.Model):
     user = models.ForeignKey(User,on_delete=models.SET_NULL , null = True , blank = True)
     receipe_name = models.CharField(max_length=100)
@@ -14,6 +23,8 @@ class Receipe (models.Model):
     blank=True)
     is_deleted  = models.BooleanField(default=False)
     
+    objects = ReceipesManager()
+    admin_objects = models.Manager()
     def save(self , *args, **kwargs):
         if not self.slug:
             from .utils import generate_slug
@@ -40,6 +51,10 @@ class Student(models.Model):
     student_age = models.IntegerField(default=18)
     student_email = models.EmailField(unique=True)
     student_address = models.TextField()
+    is_deleted  = models.BooleanField(default=False)
+    
+    objects = StudentManager()
+    admin_objects = models.Manager()
     
     def __str__(self):
         return self.student_name
