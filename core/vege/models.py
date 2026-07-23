@@ -12,6 +12,7 @@ class Receipe (models.Model):
     recipe_view_count = models.IntegerField(default=1)
     slug = models.SlugField(unique=True,null=True,
     blank=True)
+    is_deleted  = models.BooleanField(default=False)
     
     def save(self , *args, **kwargs):
         if not self.slug:
